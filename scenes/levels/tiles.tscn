@@ -1,0 +1,132 @@
+[gd_scene load_steps=18 format=3 uid="uid://c2nr8syu2unvk"]
+
+[ext_resource type="PackedScene" uid="uid://d0crmdr2mwbr7" path="res://assets/KayKit_DungeonRemastered_1.1/assets/floor_tile_small.gltf" id="1_30ec8"]
+[ext_resource type="PackedScene" uid="uid://pwvl8pclekeh" path="res://assets/KayKit_DungeonRemastered_1.1/assets/wall.gltf" id="2_2omb0"]
+[ext_resource type="PackedScene" uid="uid://dievufea4ma7m" path="res://assets/KayKit_DungeonRemastered_1.1/assets/stairs_wood_decorated.gltf" id="3_tevf0"]
+[ext_resource type="PackedScene" uid="uid://d2anyvmsedjqx" path="res://assets/KayKit_DungeonRemastered_1.1/assets/wall_corner.gltf" id="4_h6fo5"]
+[ext_resource type="PackedScene" uid="uid://b56lro8j0v06s" path="res://assets/KayKit_DungeonRemastered_1.1/assets/wall_Tsplit.gltf" id="5_a052b"]
+[ext_resource type="PackedScene" uid="uid://bxs6g62pe4f1m" path="res://assets/KayKit_DungeonRemastered_1.1/assets/wall_open_scaffold.gltf" id="6_fabea"]
+[ext_resource type="PackedScene" uid="uid://c8n6fxkneewly" path="res://assets/KayKit_DungeonRemastered_1.1/assets/wall_doorway_scaffold.gltf" id="7_fwg5g"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bkgfg"]
+points = PackedVector3Array(1.01587, 0.0745845, 1.01587, -1.01587, -0.115854, -1.01587, -1.01587, 0.0745845, -1.01587, 1.01587, -0.115854, -1.01587, -1.01587, -0.115854, 1.01587, -1.01587, 0.0745845, 1.01587, 1.01587, 0.0745845, -1.01587, 1.01587, -0.115854, 1.01587)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wv8vx"]
+points = PackedVector3Array(-1.91197, 0.0885171, -0.5, 1.85249, 3.85175, 0.5, 1.85249, 0.148251, 0.5, 1.91224, 3.91148, -0.5, -1.85221, 3.85175, 0.5, -1.91197, 3.91148, -0.5, 1.91224, 0.0885171, -0.5, -1.85221, 0.148251, 0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ycgot"]
+points = PackedVector3Array(-1.65, 0.0105824, 0.408233, -1.50699, 0.524183, 6.04643, 1.65, 0.0513231, 0.460063, 1.5, 0.00783628, 5.78052, 1.54033, 4.14286, 1.00057, -1.43947, 4.05, 0.0880033, 1.54033, 3.38073, -0.0470223, -1.50699, 4.14286, 1.00057, 1.54033, 0.524183, 6.04643, -1.64197, 0.0203979, 4.65803, 1.73095, 3.57106, 0.524499, -1.50699, 3.38073, -0.0470223, -1.47237, 0, 5.7912, 1.65, 0.0513231, 4.63273, 1.4728, 4.05, 0.0880033, 1.54033, 1.09557, 5.2846, -1.50699, 1.5718, 4.61822, -1.48378, 0.265852, 6, 1.73095, 3.57106, 0.334191, 1.73095, 3.47548, 0.715404, 1.5, 0.28617, 5.96579, -1.50699, 1.09557, 5.2846, 1.3497, 1.5718, 4.61822)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tu7mt"]
+size = Vector3(2.5, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y6sc2"]
+size = Vector3(1, 4, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n5nwd"]
+size = Vector3(4, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_egblu"]
+size = Vector3(1, 4, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ligyi"]
+size = Vector3(0.25, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dsnq3"]
+size = Vector3(4, 0.75, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qidu0"]
+size = Vector3(4, 4, 1)
+
+[node name="Tiles" type="Node3D"]
+
+[node name="floor_tile_small2" parent="." instance=ExtResource("1_30ec8")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="floor_tile_small2/floor_tile_small" index="0"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor_tile_small2/floor_tile_small/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_bkgfg")
+
+[node name="wall2" parent="." instance=ExtResource("2_2omb0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall2/wall" index="0"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall2/wall/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_wv8vx")
+
+[node name="stairs_wood_decorated2" parent="." instance=ExtResource("3_tevf0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="stairs_wood_decorated2/stairs_wood_decorated" index="0"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="stairs_wood_decorated2/stairs_wood_decorated/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_ycgot")
+
+[node name="wall_corner2" parent="." instance=ExtResource("4_h6fo5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall_corner2/wall_corner" index="0"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall_corner2/wall_corner/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 2, 0)
+shape = SubResource("BoxShape3D_tu7mt")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="wall_corner2/wall_corner/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)
+shape = SubResource("BoxShape3D_y6sc2")
+
+[node name="wall_Tsplit2" parent="." instance=ExtResource("5_a052b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall_Tsplit2/wall_Tsplit" index="0"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall_Tsplit2/wall_Tsplit/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_n5nwd")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="wall_Tsplit2/wall_Tsplit/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)
+shape = SubResource("BoxShape3D_egblu")
+
+[node name="wall_open_scaffold2" parent="." instance=ExtResource("6_fabea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall_open_scaffold2/wall_open_scaffold" index="0"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall_open_scaffold2/wall_open_scaffold/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85, 2, 0)
+shape = SubResource("BoxShape3D_ligyi")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="wall_open_scaffold2/wall_open_scaffold/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.85, 2, 0)
+shape = SubResource("BoxShape3D_ligyi")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="wall_open_scaffold2/wall_open_scaffold/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.65, 0)
+shape = SubResource("BoxShape3D_dsnq3")
+
+[node name="wall_doorway_scaffold2" parent="." instance=ExtResource("7_fwg5g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall_doorway_scaffold2/wall_doorway_scaffold" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.820099, 0, 0)
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall_doorway_scaffold2/wall_doorway_scaffold/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
+shape = SubResource("BoxShape3D_qidu0")
+
+[editable path="floor_tile_small2"]
+[editable path="wall2"]
+[editable path="stairs_wood_decorated2"]
+[editable path="wall_corner2"]
+[editable path="wall_Tsplit2"]
+[editable path="wall_open_scaffold2"]
+[editable path="wall_doorway_scaffold2"]
