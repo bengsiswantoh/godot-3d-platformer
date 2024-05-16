@@ -20,8 +20,3 @@ func switch_state(state_to_change):
 	_current_state = new_state
 	_current_state.enter_state()
 	
-func physics_process(delta: float) -> void:
-	_current_state.physics_process(delta)
-
-func input(event: InputEvent) -> void:
-	_current_state.input(event)

@@ -5,15 +5,14 @@ var character:Character
 
 func _ready() -> void:
 	character = owner
-
+	set_state(false)
+	
 func enter_state() -> void:
-	pass
-
+	set_state(true)
+	
 func exit_state() -> void:
-	pass
+	set_state(false)
 
-func physics_process(delta: float) -> void:
-	pass
-
-func input(event: InputEvent) -> void:
-	pass
+func set_state(enable: bool) -> void:
+	set_physics_process(enable)
+	set_process_input(enable)

@@ -13,15 +13,13 @@ func _input(event: InputEvent) -> void:
 		
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	state_machine.input(event)
-
-func physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed(GameConstants.INPUT_P1_JUMP) and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
-	state_machine.physics_process(delta)
-
+	super(delta)
+	
 func update_velocity_based_on_direction(speed: float = _speed) -> void:
 	if direction:
 		velocity.x = direction.x * speed

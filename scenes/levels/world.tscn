@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://02pq5rd0p17r"]
+[gd_scene load_steps=8 format=3 uid="uid://02pq5rd0p17r"]
 
 [ext_resource type="PackedScene" uid="uid://c667mbpv0okws" path="res://scenes/characters/player/player.tscn" id="1_ba1wu"]
 [ext_resource type="MeshLibrary" uid="uid://chxt3jut8tnjb" path="res://resources/tiles.tres" id="2_y1r8n"]
@@ -16,6 +16,8 @@ background_mode = 2
 sky = SubResource("Sky_psg1x")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="Curve3D" id="Curve3D_2mrbi"]
 
 [node name="World" type="Node3D"]
 
@@ -55,5 +57,11 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Enemy" parent="." instance=ExtResource("3_f5oal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4)
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("3_f5oal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 4)
+
+[node name="Path3D" type="Path3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+curve = SubResource("Curve3D_2mrbi")

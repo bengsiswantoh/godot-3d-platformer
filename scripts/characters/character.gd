@@ -20,8 +20,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 		
-	physics_process(delta)
-	
 	move_and_slide()
 	rotate_model(delta)
 
@@ -29,7 +27,7 @@ func rotate_model(delta: float) -> void:
 	var is_moving = velocity.x != 0 or velocity.z != 0
 		
 	if is_moving:
-		facing_angle = Vector2(direction.z, direction.x).angle()
+		facing_angle = Vector2(velocity.z, velocity.x).angle()
 		model.rotation.y = lerp_angle(model.rotation.y, facing_angle, rotation_speed * delta)
 
 func physics_process(delta: float) -> void:
