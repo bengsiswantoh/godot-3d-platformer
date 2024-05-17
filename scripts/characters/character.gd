@@ -11,6 +11,12 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var state_machine: StateMachine
 @export var model: Node3D
 
+@export_group("AI Node")
+@export var path: Path3D
+@export var agent: NavigationAgent3D
+@export var chase_area: Area3D
+@export var attack_area: Area3D
+
 var direction: Vector3 = Vector3.ZERO
 var facing_angle: float
 var rotation_speed: float = 8
@@ -29,6 +35,7 @@ func rotate_model(delta: float) -> void:
 	if is_moving:
 		facing_angle = Vector2(velocity.z, velocity.x).angle()
 		model.rotation.y = lerp_angle(model.rotation.y, facing_angle, rotation_speed * delta)
-
-func physics_process(delta: float) -> void:
-	pass
+		
+func stop_moving(speed: float = _speed) -> void:
+	velocity.x = move_toward(velocity.x, 0, speed)
+	velocity.z = move_toward(velocity.z, 0, speed)
