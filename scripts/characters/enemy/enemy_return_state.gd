@@ -5,7 +5,7 @@ func _ready() -> void:
 	super()
 	destination = get_point_global_position(0)
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if (character.agent.is_navigation_finished()):
 		character.state_machine.switch_state(EnemyPatrolState)
 		return

@@ -14,5 +14,5 @@ func move() -> void:
 	character.velocity.x = velocity.x
 	character.velocity.z = velocity.z
 
-func handle_chase_area_body_entered(body: Node3D) -> void:
+func handle_chase_area_body_entered(_body: Node3D) -> void:
 	character.state_machine.switch_state(EnemyChaseState)

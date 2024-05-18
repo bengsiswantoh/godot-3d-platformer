@@ -3,6 +3,8 @@ class_name Player
 
 const JUMP_VELOCITY = 4.5
 
+var direction: Vector3 = Vector3.ZERO
+
 func _input(_event: InputEvent) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector(

@@ -6,10 +6,13 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @export_range(0, 20, 0.1) var _speed := 5.0
 
+@export var stats: Array[StatResource]
+
 @export_group("Required Node")
 @export var animation_player: AnimationPlayer
 @export var state_machine: StateMachine
 @export var model: Node3D
+@export var hurtbox: Area3D
 
 @export_group("AI Node")
 @export var path: Path3D
@@ -17,9 +20,11 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var chase_area: Area3D
 @export var attack_area: Area3D
 
-var direction: Vector3 = Vector3.ZERO
 var facing_angle: float
 var rotation_speed: float = 8
+
+func _ready() -> void:
+	hurtbox.area_entered.connect(_handle_hurtbox_entered)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -28,6 +33,14 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	rotate_model(delta)
+	
+func _handle_hurtbox_entered(area: Area3D) -> void:
+	var health: StatResource = get_stat_resource(StatResource.Stat.Health)
+	
+	var character: Character = area.owner as Character;
+	health.stat_value -= character.get_stat_resource(StatResource.Stat.Strength).stat_value
+	
+	print(health.stat_value)
 
 func rotate_model(delta: float) -> void:
 	var is_moving = velocity.x != 0 or velocity.z != 0
@@ -39,3 +52,14 @@ func rotate_model(delta: float) -> void:
 func stop_moving(speed: float = _speed) -> void:
 	velocity.x = move_toward(velocity.x, 0, speed)
 	velocity.z = move_toward(velocity.z, 0, speed)
+	
+func get_stat_resource(stat: int) -> StatResource:
+	var result: StatResource
+	
+	for element in stats:
+		if element.stat_type == stat:
+			result = element
+			break
+	
+	return result
+	

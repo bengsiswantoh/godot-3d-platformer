@@ -8,10 +8,11 @@ func _ready() -> void:
 	_current_state.enter_state()
 
 func switch_state(state_to_change):
-	var new_state: Node = null
+	var new_state: Node
 	for state in _states:
 		if state.get_script() == state_to_change:
 			new_state = state
+			break
 			
 	if !new_state:
 		return
