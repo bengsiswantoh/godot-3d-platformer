@@ -14,4 +14,4 @@ func _on_start_pressed() -> void:
 	get_tree().paused = false
 	containers[ContainerType.Start].visible = false
 	
-	#on_start_game.emit()
+	#game_started.emit()
