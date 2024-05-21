@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://02pq5rd0p17r"]
+[gd_scene load_steps=13 format=3 uid="uid://02pq5rd0p17r"]
 
 [ext_resource type="PackedScene" uid="uid://c667mbpv0okws" path="res://scenes/characters/player/player.tscn" id="1_ba1wu"]
+[ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_uaatx"]
 [ext_resource type="MeshLibrary" uid="uid://chxt3jut8tnjb" path="res://resources/tiles.tres" id="2_y1r8n"]
+[ext_resource type="Script" path="res://scripts/general/camera.gd" id="3_4jg3e"]
 [ext_resource type="PackedScene" uid="uid://c8gyf3hs0bqg1" path="res://scenes/characters/enemy/enemy.tscn" id="3_f5oal"]
+[ext_resource type="PackedScene" uid="uid://e25licqchhxs" path="res://scenes/general/ui.tscn" id="4_6hufn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qaovn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -37,6 +40,7 @@ _data = {
 point_count = 5
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_uaatx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mx011")
@@ -45,11 +49,7 @@ environment = SubResource("Environment_mx011")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("1_ba1wu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.6071, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4, 6)
+[node name="UI" parent="." instance=ExtResource("4_6hufn")]
 
 [node name="Environment" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
@@ -91,3 +91,12 @@ path = NodePath("..")
 [node name="Path3D2" type="Path3D" parent="Enemies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.3632, 6.16191, -26.0815)
 curve = SubResource("Curve3D_pey4p")
+
+[node name="Player" parent="." instance=ExtResource("1_ba1wu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.607, 0.07, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player" node_paths=PackedStringArray("_target")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4, 6)
+script = ExtResource("3_4jg3e")
+_target = NodePath("..")
+_position_from_target = Vector3(0, 4, 6)

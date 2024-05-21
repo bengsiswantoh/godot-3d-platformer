@@ -13,6 +13,6 @@ func enter_state() -> void:
 func exit_state() -> void:
 	set_state(false)
 
-func set_state(enable: bool) -> void:
-	set_physics_process(enable)
-	set_process_input(enable)
+func set_state(flag: bool) -> void:
+	set_physics_process(flag)
+	set_process_input(flag)

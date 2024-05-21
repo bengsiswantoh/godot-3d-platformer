@@ -16,7 +16,10 @@ func switch_state(state_to_change):
 			
 	if !new_state:
 		return
-		
+	
+	if _current_state.get_script() == state_to_change:
+		return
+	
 	_current_state.exit_state()
 	_current_state = new_state
 	_current_state.enter_state()

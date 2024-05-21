@@ -1,6 +1,8 @@
 extends Resource
 class_name StatResource
 
+signal on_zero
+
 enum Stat {
 	Health,
 	Strength
@@ -14,4 +16,6 @@ var _stat_value: float
 		return _stat_value
 	set(value):
 		_stat_value = clamp(value, 0, INF)
+		if _stat_value == 0:
+			on_zero.emit()
 

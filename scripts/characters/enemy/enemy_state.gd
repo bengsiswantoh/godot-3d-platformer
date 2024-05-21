@@ -3,6 +3,13 @@ class_name EnemyState
 
 var destination: Vector3
 
+func _ready() -> void:
+	super()
+	character.get_stat_resource(StatResource.Stat.Health).on_zero.connect(_handle_zero_health)
+	
+func _handle_zero_health() -> void:
+	character.state_machine.switch_state(EnemyDeathState)
+
 func get_point_global_position(index: int) -> Vector3:
 	var local_position: Vector3 = character.path.curve.get_point_position(index)
 	var global_position: Vector3 = character.path.global_position
