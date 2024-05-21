@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c667mbpv0okws"]
+[gd_scene load_steps=13 format=3 uid="uid://c667mbpv0okws"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_qo8hv"]
 [ext_resource type="Script" path="res://scripts/characters/player/player_idle_state.gd" id="2_756c2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/characters/player/player_move_state.gd" id="4_3bp7k"]
 [ext_resource type="PackedScene" uid="uid://bi1uc7w3w0t4d" path="res://scenes/inherited/knight.tscn" id="5_bfdda"]
 [ext_resource type="Script" path="res://scripts/characters/player/player_attack_state.gd" id="5_lblf0"]
+[ext_resource type="Script" path="res://scripts/characters/player/player_death_state.gd" id="7_5noux"]
 
 [sub_resource type="Resource" id="Resource_r3jtr"]
 script = ExtResource("2_v7v2u")
@@ -24,7 +25,7 @@ height = 2.4
 [sub_resource type="BoxShape3D" id="BoxShape3D_j6q0p"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hurtbox", "hitbox", "_hitbox_shape")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hitbox", "_hitbox_shape", "_hurtbox")]
 collision_layer = 2
 collision_mask = 5
 floor_max_angle = 1.55334
@@ -33,9 +34,9 @@ stats = Array[ExtResource("2_v7v2u")]([SubResource("Resource_r3jtr"), SubResourc
 animation_player = NodePath("Knight/AnimationPlayer")
 state_machine = NodePath("StateMachine")
 model = NodePath("Knight")
-hurtbox = NodePath("Hurtbox")
 hitbox = NodePath("Hitbox")
 _hitbox_shape = NodePath("Hitbox/CollisionShape3D")
+_hurtbox = NodePath("Hurtbox")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
@@ -65,6 +66,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="DeathState" type="Node" parent="StateMachine"]
+script = ExtResource("7_5noux")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_layer = 0

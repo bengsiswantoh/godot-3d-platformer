@@ -6,9 +6,9 @@ extends Node3D
 func _ready() -> void:
 	pass
 
-func _handle_start_game() -> void:
+func _on_start_game() -> void:
 	reparent(_target)
 	position = _position_from_target
 
-func _handle_end_game() -> void:
+func _on_end_game() -> void:
 	reparent(get_tree().current_scene)

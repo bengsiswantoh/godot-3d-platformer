@@ -33,7 +33,7 @@ radius = 6.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_g7kkp"]
 radius = 1.15
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hurtbox", "hitbox", "_hitbox_shape", "agent", "chase_area", "attack_area")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hitbox", "_hitbox_shape", "_hurtbox", "agent", "chase_area", "attack_area")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_5vltb")
@@ -41,9 +41,9 @@ stats = Array[ExtResource("2_cxg0b")]([SubResource("Resource_maskk"), SubResourc
 animation_player = NodePath("Skeleton_Minion/AnimationPlayer")
 state_machine = NodePath("StateMachine")
 model = NodePath("Skeleton_Minion")
-hurtbox = NodePath("Hurtbox")
 hitbox = NodePath("Hitbox")
 _hitbox_shape = NodePath("Hitbox/CollisionShape3D")
+_hurtbox = NodePath("Hurtbox")
 agent = NodePath("NavigationAgent3D")
 chase_area = NodePath("ChaseArea")
 attack_area = NodePath("AttackArea")

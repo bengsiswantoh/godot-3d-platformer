@@ -1,5 +1,5 @@
-extends Character
 class_name Enemy
+extends Character
 
 func rotate_model_to_position(destination: Vector3) -> void:
 	var direction = global_position.direction_to(destination)

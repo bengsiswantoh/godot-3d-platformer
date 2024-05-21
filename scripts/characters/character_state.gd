@@ -1,5 +1,5 @@
-extends Node
 class_name CharacterState
+extends Node
 
 var character:Character
 

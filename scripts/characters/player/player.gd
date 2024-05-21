@@ -1,5 +1,5 @@
-extends Character
 class_name Player
+extends Character
 
 const JUMP_VELOCITY = 4.5
 
@@ -14,7 +14,7 @@ func _input(_event: InputEvent) -> void:
 		GameConstants.INPUT_P1_DOWN)
 		
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
+
 #func _physics_process(delta: float) -> void:
 	# Handle jump.
 	#if Input.is_action_just_pressed(GameConstants.INPUT_P1_JUMP) and is_on_floor():

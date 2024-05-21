@@ -13,7 +13,28 @@ func _physics_process(_delta: float) -> void:
 		
 	move()
 	
-func _handle_navigation_finished() -> void:
+func enter_state() -> void:
+	super()
+	character.animation_player.play(GameConstants.ANIM_MOVE)
+	
+	_point_index = 1
+	_set_destination()
+	
+	character.agent.navigation_finished.connect(_on_navigation_finished)
+	_idle_timer.timeout.connect(_on_timeout)
+	character.chase_area.body_entered.connect(on_chase_area_body_entered)
+	
+func exit_state() ->void:
+	super()
+	character.agent.navigation_finished.disconnect(_on_navigation_finished)
+	_idle_timer.timeout.disconnect(_on_timeout)
+	character.chase_area.body_entered.disconnect(on_chase_area_body_entered)
+
+func _set_destination() -> void:
+	destination = get_point_global_position(_point_index)
+	character.agent.target_position = destination
+	
+func _on_navigation_finished() -> void:
 	character.animation_player.play(GameConstants.ANIM_IDLE)
 	
 	var rng := RandomNumberGenerator.new()
@@ -21,30 +42,11 @@ func _handle_navigation_finished() -> void:
 	
 	_idle_timer.start()
 		
-func _handle_timeout() -> void:
+func _on_timeout() -> void:
 	character.animation_player.play(GameConstants.ANIM_MOVE)
 	
 	_point_index = wrap(_point_index + 1, 0, character.path.curve.point_count)
-	set_destination()
+	_set_destination()
 
-func enter_state() -> void:
-	super()
-	character.animation_player.play(GameConstants.ANIM_MOVE)
-	
-	_point_index = 1
-	set_destination()
-	
-	character.agent.navigation_finished.connect(_handle_navigation_finished)
-	_idle_timer.timeout.connect(_handle_timeout)
-	character.chase_area.body_entered.connect(handle_chase_area_body_entered)
-	
-func exit_state() ->void:
-	super()
-	character.agent.navigation_finished.disconnect(_handle_navigation_finished)
-	_idle_timer.timeout.disconnect(_handle_timeout)
-	character.chase_area.body_entered.disconnect(handle_chase_area_body_entered)
 
-func set_destination() -> void:
-	destination = get_point_global_position(_point_index)
-	character.agent.target_position = destination
 	

@@ -1,5 +1,5 @@
-extends Node
 class_name StateMachine
+extends Node
 
 @export var _current_state: Node
 @export var _states: Array[Node]

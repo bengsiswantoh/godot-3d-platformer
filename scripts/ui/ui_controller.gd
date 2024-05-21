@@ -8,9 +8,9 @@ func _ready() -> void:
 			containers[element.container] = element
 			
 	containers[ContainerType.Start].visible = true
-	containers[ContainerType.Start].button.pressed.connect(_handle_start_pressed)
+	containers[ContainerType.Start].button.pressed.connect(_on_start_pressed)
 
-func _handle_start_pressed() -> void:
+func _on_start_pressed() -> void:
 	get_tree().paused = false
 	containers[ContainerType.Start].visible = false
 	
