@@ -3,11 +3,11 @@ extends Character
 
 const JUMP_VELOCITY = 4.5
 
-var direction: Vector3 = Vector3.ZERO
+var direction := Vector3.ZERO
 
 func _input(_event: InputEvent) -> void:
 	# Get the input direction and handle the movement/deceleration.
-	var input_dir := Input.get_vector(
+	var input_dir: Vector2 = Input.get_vector(
 		GameConstants.INPUT_P1_LEFT, 
 		GameConstants.INPUT_P1_RIGHT, 
 		GameConstants.INPUT_P1_UP, 

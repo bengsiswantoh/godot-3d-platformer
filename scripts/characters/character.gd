@@ -1,7 +1,7 @@
 class_name Character
 extends CharacterBody3D
 
-@export_range(0, 20, 0.1) var _speed := 5.0
+@export_range(0, 20, 0.1) var _speed: float = 5.0
 
 @export var stats: Array[StatResource]
 
@@ -55,7 +55,7 @@ func set_disable_hitbox(flag: bool) -> void:
 	_hitbox_shape.disabled = flag
 	
 func _rotate_model(delta: float) -> void:
-	var is_moving = velocity.x != 0 or velocity.z != 0
+	var is_moving: bool = velocity.x != 0 or velocity.z != 0
 		
 	if is_moving:
 		facing_angle = Vector2(velocity.z, velocity.x).angle()

@@ -30,7 +30,7 @@ func exit_state() -> void:
 	_combo_timer.start()
 	
 func _perform_hit() -> void:
-	var new_position = Vector3.BACK.rotated(Vector3.UP, character.facing_angle)
+	var new_position := Vector3.BACK.rotated(Vector3.UP, character.facing_angle)
 	
 	var distanceMultiplier: float = 0.75;
 	new_position *= distanceMultiplier;

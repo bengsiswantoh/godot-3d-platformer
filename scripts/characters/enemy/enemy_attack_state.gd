@@ -24,7 +24,7 @@ func exit_state() -> void:
 	_attack_timer.timeout.disconnect(_on_timeout)
 	
 func _get_target() -> Node3D:
-	var targets := character.attack_area.get_overlapping_bodies()
+	var targets: Array[Node3D] = character.attack_area.get_overlapping_bodies()
 	
 	if targets.is_empty():
 		return null
@@ -38,10 +38,10 @@ func _perform_hit() -> void:
 func _on_animation_finished(_animation_name: String) -> void:
 	character.set_disable_hitbox(true)
 	
-	var target = _get_target()
+	var target: Node3D = _get_target()
 	
 	if not target:
-		var chase_targets := character.chase_area.get_overlapping_bodies()
+		var chase_targets: Array[Node3D] = character.chase_area.get_overlapping_bodies()
 		
 		if chase_targets.is_empty():
 			character.state_machine.switch_state(EnemyReturnState)

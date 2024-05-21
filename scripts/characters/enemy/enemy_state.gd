@@ -14,7 +14,7 @@ func get_point_global_position(index: int) -> Vector3:
 
 func move() -> void:
 	character.agent.get_next_path_position()
-	var velocity = character.global_position.direction_to(destination)
+	var velocity: Vector3 = character.global_position.direction_to(destination)
 	character.velocity.x = velocity.x
 	character.velocity.z = velocity.z
 
