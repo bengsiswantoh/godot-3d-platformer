@@ -1,9 +1,12 @@
 class_name EnemyAttackState
 extends EnemyState
 
+
 @export var _attack_timer: Timer
 
+
 var _target_position: Vector3
+	
 	
 func enter_state() -> void:
 	super()
@@ -18,10 +21,12 @@ func enter_state() -> void:
 	_attack_timer.timeout.connect(_on_timeout)
 	_attack_timer.start()
 	
+	
 func exit_state() -> void:
 	super()
 	character.animation_player.animation_finished.disconnect(_on_animation_finished)
 	_attack_timer.timeout.disconnect(_on_timeout)
+	
 	
 func _get_target() -> Node3D:
 	var targets: Array[Node3D] = character.attack_area.get_overlapping_bodies()
@@ -31,9 +36,11 @@ func _get_target() -> Node3D:
 	
 	return targets[0]
 
+
 func _perform_hit() -> void:
 	character.set_disable_hitbox(false)
 	character.hitbox.global_position = _target_position
+	
 	
 func _on_animation_finished(_animation_name: String) -> void:
 	character.set_disable_hitbox(true)
@@ -56,6 +63,7 @@ func _on_animation_finished(_animation_name: String) -> void:
 	character.rotate_model_to_position(_target_position)
 	
 	_attack_timer.start()
+		
 		
 # TODO call this is animation player
 func _on_timeout() -> void:

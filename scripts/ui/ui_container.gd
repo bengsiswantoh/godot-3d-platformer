@@ -1,5 +1,14 @@
 class_name UIContainer
-extends VBoxContainer
+extends Container
 
-@export_range(0, 5, 1) var container: int
+enum Type {
+	Start,
+	Pause,
+	Victory,
+	Defeat,
+	Stats,
+	Reward
+}
+
+@export var container: Type
 @export var button: Button

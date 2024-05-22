@@ -1,11 +1,14 @@
 class_name StateMachine
 extends Node
 
+
 @export var _current_state: Node
 @export var _states: Array[Node]
 
+
 func _ready() -> void:
 	_current_state.enter_state()
+
 
 func switch_state(state_to_change):
 	var new_state: Node

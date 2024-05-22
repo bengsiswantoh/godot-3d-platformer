@@ -2,7 +2,6 @@ class_name Character
 extends CharacterBody3D
 
 @export_range(0, 20, 0.1) var _speed: float = 5.0
-
 @export var stats: Array[StatResource]
 
 @export_group("Required Node")
@@ -19,15 +18,17 @@ extends CharacterBody3D
 @export var chase_area: Area3D
 @export var attack_area: Area3D
 
+
 var facing_angle: float
 
-var _rotation_speed: float = 8
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+var _rotation_speed: float = 8
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 
 func _ready() -> void:
 	_hurtbox.area_entered.connect(_on_hurtbox_entered)
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -37,9 +38,11 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_rotate_model(delta)
 
+
 func stop_moving(speed: float = _speed) -> void:
 	velocity.x = move_toward(velocity.x, 0, speed)
 	velocity.z = move_toward(velocity.z, 0, speed)
+	
 	
 func get_stat_resource(stat: int) -> StatResource:
 	var result: StatResource
@@ -51,8 +54,10 @@ func get_stat_resource(stat: int) -> StatResource:
 	
 	return result
 	
+	
 func set_disable_hitbox(flag: bool) -> void:
 	_hitbox_shape.disabled = flag
+	
 	
 func _rotate_model(delta: float) -> void:
 	var is_moving: bool = velocity.x != 0 or velocity.z != 0
@@ -60,6 +65,7 @@ func _rotate_model(delta: float) -> void:
 	if is_moving:
 		facing_angle = Vector2(velocity.z, velocity.x).angle()
 		model.rotation.y = lerp_angle(model.rotation.y, facing_angle, _rotation_speed * delta)
+	
 	
 func _on_hurtbox_entered(area: Area3D) -> void:
 	var health: StatResource = get_stat_resource(StatResource.Stat.Health)

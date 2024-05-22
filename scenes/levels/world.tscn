@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://02pq5rd0p17r"]
+[gd_scene load_steps=18 format=3 uid="uid://02pq5rd0p17r"]
 
 [ext_resource type="PackedScene" uid="uid://c667mbpv0okws" path="res://scenes/characters/player/player.tscn" id="1_ba1wu"]
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_uaatx"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/general/camera.gd" id="3_4jg3e"]
 [ext_resource type="PackedScene" uid="uid://c8gyf3hs0bqg1" path="res://scenes/characters/enemy/enemy.tscn" id="3_f5oal"]
 [ext_resource type="PackedScene" uid="uid://e25licqchhxs" path="res://scenes/general/ui.tscn" id="4_6hufn"]
+[ext_resource type="Script" path="res://scripts/characters/enemy/enemies_container.gd" id="4_iktuw"]
+[ext_resource type="Script" path="res://scripts/resources/stat_resource.gd" id="6_qxqhh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qaovn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -32,12 +34,27 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="Resource" id="Resource_mic3n"]
+script = ExtResource("6_qxqhh")
+stat_type = 0
+stat_value = 20.0
+
+[sub_resource type="Resource" id="Resource_gyfgw"]
+script = ExtResource("6_qxqhh")
+stat_type = 1
+stat_value = 4.0
+
 [sub_resource type="Curve3D" id="Curve3D_pey4p"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -11.3606, -4.29153e-05, 0.0356102, 0, 0, 0, 0, 0, 0, -11.5279, -4.29153e-05, 8.90271, 0, 0, 0, 0, 0, 0, 5.59283, -4.29153e-05, 9.51616, 0, 0, 0, 0, 0, 0, 6.31781, -4.29153e-05, 2.43363, 0, 0, 0, 0, 0, 0, -11.3606, -4.29153e-05, 0.0356102),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.23512, -4.48227e-05, -1.79499, 0, 0, 0, 0, 0, 0, 19.8695, -4.48227e-05, -1.48695, 0, 0, 0, 0, 0, 0, 20.691, -4.48227e-05, 3.95517, 0, 0, 0, 0, 0, 0, 16.8404, -4.48227e-05, 7.65171, 0, 0, 0, 0, 0, 0, 5.54545, -4.48227e-05, 8.11378, 0, 0, 0, 0, 0, 0, 3.23512, -4.48227e-05, -1.79499),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
 }
-point_count = 5
+point_count = 6
+
+[sub_resource type="Resource" id="Resource_3mtic"]
+script = ExtResource("6_qxqhh")
+stat_type = 0
+stat_value = 20.0
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_uaatx")
@@ -79,6 +96,7 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Enemies" type="Node3D" parent="."]
+script = ExtResource("4_iktuw")
 
 [node name="Path3D" type="Path3D" parent="Enemies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
@@ -86,17 +104,23 @@ curve = SubResource("Curve3D_2mrbi")
 
 [node name="Enemy" parent="Enemies/Path3D" node_paths=PackedStringArray("path") instance=ExtResource("3_f5oal")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+stats = Array[ExtResource("6_qxqhh")]([SubResource("Resource_mic3n"), SubResource("Resource_gyfgw")])
 path = NodePath("..")
 
 [node name="Path3D2" type="Path3D" parent="Enemies"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.3632, 6.16191, -26.0815)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2736, 6.16191, -26.0815)
 curve = SubResource("Curve3D_pey4p")
+
+[node name="Enemy" parent="Enemies/Path3D2" node_paths=PackedStringArray("path") instance=ExtResource("3_f5oal")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7264, -2.16191, 1.0815)
+stats = Array[ExtResource("6_qxqhh")]([SubResource("Resource_3mtic"), SubResource("Resource_gyfgw")])
+path = NodePath("..")
 
 [node name="Player" parent="." instance=ExtResource("1_ba1wu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.607, 0.07, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Player" node_paths=PackedStringArray("_target")]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 4, 6)
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("_target")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 75.3762, 4.07, 6)
 script = ExtResource("3_4jg3e")
-_target = NodePath("..")
+_target = NodePath("../Player")
 _position_from_target = Vector3(0, 4, 6)

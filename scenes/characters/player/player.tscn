@@ -1,23 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://c667mbpv0okws"]
+[gd_scene load_steps=12 format=3 uid="uid://c667mbpv0okws"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/player.gd" id="1_qo8hv"]
+[ext_resource type="Resource" uid="uid://c3sriy6hvvydm" path="res://resources/player_health_stat.tres" id="2_46eis"]
 [ext_resource type="Script" path="res://scripts/characters/player/player_idle_state.gd" id="2_756c2"]
 [ext_resource type="PackedScene" uid="uid://bhl80co3kt1tg" path="res://scenes/characters/state_machine.tscn" id="2_870mw"]
-[ext_resource type="Script" path="res://scripts/resources/stat_resource.gd" id="2_v7v2u"]
+[ext_resource type="Resource" uid="uid://d0dcev7o8rxtq" path="res://resources/player_strength_stat.tres" id="3_0tsjh"]
 [ext_resource type="Script" path="res://scripts/characters/player/player_move_state.gd" id="4_3bp7k"]
 [ext_resource type="PackedScene" uid="uid://bi1uc7w3w0t4d" path="res://scenes/inherited/knight.tscn" id="5_bfdda"]
 [ext_resource type="Script" path="res://scripts/characters/player/player_attack_state.gd" id="5_lblf0"]
 [ext_resource type="Script" path="res://scripts/characters/player/player_death_state.gd" id="7_5noux"]
-
-[sub_resource type="Resource" id="Resource_r3jtr"]
-script = ExtResource("2_v7v2u")
-stat_type = 0
-stat_value = 100.0
-
-[sub_resource type="Resource" id="Resource_ampfc"]
-script = ExtResource("2_v7v2u")
-stat_type = 1
-stat_value = 3.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_enn55"]
 height = 2.4
@@ -30,7 +21,7 @@ collision_layer = 2
 collision_mask = 5
 floor_max_angle = 1.55334
 script = ExtResource("1_qo8hv")
-stats = Array[ExtResource("2_v7v2u")]([SubResource("Resource_r3jtr"), SubResource("Resource_ampfc")])
+stats = Array[Resource("res://scripts/resources/stat_resource.gd")]([ExtResource("2_46eis"), ExtResource("3_0tsjh")])
 animation_player = NodePath("Knight/AnimationPlayer")
 state_machine = NodePath("StateMachine")
 model = NodePath("Knight")
