@@ -8,7 +8,7 @@ func _ready() -> void:
 	
 	
 func _physics_process(_delta: float) -> void:
-	if (character.agent.is_navigation_finished()):
+	if character.agent.is_navigation_finished():
 		character.state_machine.switch_state(EnemyPatrolState)
 		return
 	
