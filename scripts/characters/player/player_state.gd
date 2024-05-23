@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func check_for_attack_input() -> void:
-	if (Input.is_action_just_pressed(GameConstants.INPUT_P1_ATTACK)):
+	if (Input.is_action_just_pressed(character.input.attack)):
 		character.state_machine.switch_state(PlayerAttackState)
 
 

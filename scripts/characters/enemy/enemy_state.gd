@@ -20,8 +20,8 @@ func get_point_global_position(index: int) -> Vector3:
 func move() -> void:
 	character.agent.get_next_path_position()
 	var velocity: Vector3 = character.global_position.direction_to(destination)
-	character.velocity.x = velocity.x
-	character.velocity.z = velocity.z
+	character.velocity.x = velocity.x * character.speed
+	character.velocity.z = velocity.z * character.speed
 
 
 func on_chase_area_body_entered(_body: Node3D) -> void:

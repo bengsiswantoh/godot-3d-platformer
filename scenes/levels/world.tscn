@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://02pq5rd0p17r"]
+[gd_scene load_steps=23 format=3 uid="uid://02pq5rd0p17r"]
 
 [ext_resource type="PackedScene" uid="uid://c667mbpv0okws" path="res://scenes/characters/player/player.tscn" id="1_ba1wu"]
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_uaatx"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://e25licqchhxs" path="res://scenes/general/ui.tscn" id="4_6hufn"]
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemies_container.gd" id="4_iktuw"]
 [ext_resource type="Script" path="res://scripts/resources/stat_resource.gd" id="6_qxqhh"]
+[ext_resource type="PackedScene" uid="uid://bxbdy7m8041gg" path="res://scenes/rewards/treasure_chest.tscn" id="9_ls5i6"]
+[ext_resource type="Script" path="res://scripts/resources/reward_resource.gd" id="10_xq3lk"]
+[ext_resource type="Texture2D" uid="uid://cug5yo4gr1hwx" path="res://assets/UI Adventure Pack/barYellow_verticalTop.png" id="11_g72gp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qaovn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -55,6 +58,17 @@ point_count = 6
 script = ExtResource("6_qxqhh")
 stat_type = 0
 stat_value = 20.0
+
+[sub_resource type="Resource" id="Resource_dbdgd"]
+script = ExtResource("6_qxqhh")
+stat_type = 1
+stat_value = 4.0
+
+[sub_resource type="Resource" id="Resource_pteaj"]
+script = ExtResource("10_xq3lk")
+sprite = ExtResource("11_g72gp")
+description = "+4 Damage"
+target_stat = SubResource("Resource_dbdgd")
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_uaatx")
@@ -116,11 +130,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7264, -2.16191, 1.0815)
 stats = Array[ExtResource("6_qxqhh")]([SubResource("Resource_3mtic"), SubResource("Resource_gyfgw")])
 path = NodePath("..")
 
-[node name="Player" parent="." instance=ExtResource("1_ba1wu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.607, 0.07, 0)
+[node name="Player1" parent="." instance=ExtResource("1_ba1wu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.607, 0.07, -2)
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("_target")]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 75.3762, 4.07, 6)
 script = ExtResource("3_4jg3e")
-_target = NodePath("../Player")
+_target = NodePath("../Player1")
 _position_from_target = Vector3(0, 4, 6)
+
+[node name="TreasureChest" parent="." instance=ExtResource("9_ls5i6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 75, 0, -14)
+_reward = SubResource("Resource_pteaj")

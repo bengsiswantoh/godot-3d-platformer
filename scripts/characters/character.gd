@@ -1,7 +1,7 @@
 class_name Character
 extends CharacterBody3D
 
-@export_range(0, 20, 0.1) var _speed: float = 5.0
+@export_range(0, 20, 0.1) var speed: float = 5
 @export var stats: Array[StatResource]
 
 @export_group("Required Node")
@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	_rotate_model(delta)
 
 
-func stop_moving(speed: float = _speed) -> void:
+func stop_moving() -> void:
 	velocity.x = move_toward(velocity.x, 0, speed)
 	velocity.z = move_toward(velocity.z, 0, speed)
 	
@@ -64,7 +64,8 @@ func _rotate_model(delta: float) -> void:
 		
 	if is_moving:
 		facing_angle = Vector2(velocity.z, velocity.x).angle()
-		model.rotation.y = lerp_angle(model.rotation.y, facing_angle, _rotation_speed * delta)
+		#model.rotation.y = lerp_angle(model.rotation.y, facing_angle, _rotation_speed * delta)
+		model.rotation.y = facing_angle
 	
 	
 func _on_hurtbox_entered(area: Area3D) -> void:

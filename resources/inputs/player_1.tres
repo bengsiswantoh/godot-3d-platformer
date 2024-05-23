@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="InputResource" load_steps=2 format=3 uid="uid://cskpnax7n2s4o"]
+
+[ext_resource type="Script" path="res://scripts/resources/input_resource.gd" id="1_3isnm"]
+
+[resource]
+script = ExtResource("1_3isnm")
+player_index = 0
