@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8gyf3hs0bqg1"]
+[gd_scene load_steps=20 format=3 uid="uid://c8gyf3hs0bqg1"]
 
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemy.gd" id="1_5vltb"]
 [ext_resource type="PackedScene" uid="uid://bhl80co3kt1tg" path="res://scenes/characters/state_machine.tscn" id="1_ti0f0"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemy_chase_state.gd" id="6_f70pb"]
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemy_attack_state.gd" id="7_3b4vw"]
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemy_death_state.gd" id="9_n23jn"]
+[ext_resource type="Script" path="res://scripts/characters/attack_hitbox.gd" id="10_3y54k"]
+[ext_resource type="Shader" path="res://shaders/outline3D.gdshader" id="12_g7t3d"]
 
 [sub_resource type="Resource" id="Resource_maskk"]
 script = ExtResource("2_cxg0b")
@@ -33,7 +35,15 @@ radius = 6.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_g7kkp"]
 radius = 1.15
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hitbox", "_hitbox_shape", "_hurtbox", "agent", "chase_area", "attack_area")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_so07w"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("12_g7t3d")
+shader_parameter/active = false
+shader_parameter/thickness = 0.1
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hitbox", "_hitbox_shape", "_hurtbox", "_head", "_timer", "agent", "chase_area", "attack_area")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_5vltb")
@@ -45,6 +55,8 @@ model = NodePath("Skeleton_Minion")
 hitbox = NodePath("Hitbox")
 _hitbox_shape = NodePath("Hitbox/CollisionShape3D")
 _hurtbox = NodePath("Hurtbox")
+_head = NodePath("Skeleton_Minion/Rig/Skeleton3D/Skeleton_Minion_Head")
+_timer = NodePath("ShaderTimer")
 agent = NodePath("NavigationAgent3D")
 chase_area = NodePath("ChaseArea")
 attack_area = NodePath("AttackArea")
@@ -100,6 +112,7 @@ shape = SubResource("CapsuleShape3D_e1df3")
 [node name="Hitbox" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 0
+script = ExtResource("10_3y54k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
@@ -124,5 +137,12 @@ shape = SubResource("SphereShape3D_g7kkp")
 debug_enabled = true
 
 [node name="Skeleton_Minion" parent="." instance=ExtResource("2_ujcpg")]
+
+[node name="Skeleton_Minion_Head" parent="Skeleton_Minion/Rig/Skeleton3D" index="5"]
+material_overlay = SubResource("ShaderMaterial_so07w")
+
+[node name="ShaderTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
 
 [editable path="Skeleton_Minion"]

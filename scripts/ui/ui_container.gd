@@ -12,3 +12,5 @@ enum Type {
 
 @export var container: Type
 @export var button: Button
+@export var texture_rect: TextureRect
+@export var label: Label

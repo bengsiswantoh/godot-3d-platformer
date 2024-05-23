@@ -10,6 +10,10 @@ const JUMP_VELOCITY = 4.5
 
 var direction := Vector3.ZERO
 
+func _ready() -> void:
+	super()
+	Events.chest_opened.connect(_on_chest_opened)
+
 
 func _input(_event: InputEvent) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -36,3 +40,8 @@ func update_velocity_based_on_direction() -> void:
 		velocity.z = direction.z * speed
 	else:
 		stop_moving()
+
+
+func _on_chest_opened(reward: RewardResource) -> void:
+	var stat = get_stat_resource(reward.target_stat.stat_type)
+	stat.stat_value += reward.target_stat.stat_value

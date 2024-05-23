@@ -4,6 +4,9 @@ extends PlayerState
 
 func _input(_event: InputEvent) -> void:
 	check_for_attack_input()
+	
+	if (Input.is_action_just_pressed(GameConstants.INPUT_P1_INTERACT)):
+		character.state_machine.switch_state(PlayerPlacingBombState)
 
 
 func _physics_process(_delta: float) -> void:

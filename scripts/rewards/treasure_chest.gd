@@ -12,6 +12,10 @@ func _ready() -> void:
 	
 
 func _input(_event: InputEvent) -> void:
-	if _icon.visible:
-		if Input.is_action_just_pressed(GameConstants.INPUT_P1_INTERACT):
-			print("open")
+	if not _icon.visible or not Input.is_action_just_pressed(GameConstants.INPUT_P1_INTERACT):
+		return
+		
+	_area.monitoring = false
+	_icon.visible = false
+	
+	Events.chest_opened.emit(_reward)

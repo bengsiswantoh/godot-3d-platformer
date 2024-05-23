@@ -17,3 +17,4 @@ func exit_state() -> void:
 func set_state(flag: bool) -> void:
 	set_physics_process(flag)
 	set_process_input(flag)
+

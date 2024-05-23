@@ -16,9 +16,11 @@ func _ready() -> void:
 	
 	containers[UIContainer.Type.Start].button.pressed.connect(_on_start_pressed)
 	containers[UIContainer.Type.Pause].button.pressed.connect(_on_pause_pressed)
+	containers[UIContainer.Type.Reward].button.pressed.connect(_on_reward_pressed)
 	
 	Events.game_ended.connect(_on_game_ended)
 	Events.victory.connect(_on_victory)
+	Events.chest_opened.connect(_on_chest_opened)
 	
 
 func _input(_event: InputEvent) -> void:
@@ -49,6 +51,14 @@ func _on_pause_pressed() -> void:
 	containers[UIContainer.Type.Pause].visible = false
 	containers[UIContainer.Type.Stats].visible = true
 	
+func _on_reward_pressed() -> void:
+	_can_pause = true
+	
+	get_tree().paused = false
+	
+	containers[UIContainer.Type.Reward].visible = false
+	containers[UIContainer.Type.Stats].visible = true
+	
 
 func _on_game_ended() -> void:
 	_can_pause = false
@@ -64,3 +74,14 @@ func _on_victory() -> void:
 	containers[UIContainer.Type.Victory].visible = true
 	
 	get_tree().paused = true
+
+
+func _on_chest_opened(reward: RewardResource) -> void:
+	_can_pause = false
+	
+	get_tree().paused = true
+	containers[UIContainer.Type.Stats].visible = false
+	containers[UIContainer.Type.Reward].visible = true
+	
+	containers[UIContainer.Type.Reward].texture_rect.texture = reward.sprite
+	containers[UIContainer.Type.Reward].label.text = reward.description

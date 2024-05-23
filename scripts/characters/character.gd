@@ -11,6 +11,8 @@ extends CharacterBody3D
 @export var hitbox: Area3D
 @export var _hitbox_shape: CollisionShape3D
 @export var _hurtbox: Area3D
+@export var _head: MeshInstance3D
+@export var _timer: Timer
 
 @export_group("AI Node")
 @export var path: Path3D
@@ -22,11 +24,14 @@ extends CharacterBody3D
 var facing_angle: float
 
 
-var _rotation_speed: float = 8
+var _shader: ShaderMaterial
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func _ready() -> void:
+	_shader = _head.material_overlay
+	
+	_timer.timeout.connect(_on_timeout)
 	_hurtbox.area_entered.connect(_on_hurtbox_entered)
 
 
@@ -37,11 +42,6 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	_rotate_model(delta)
-
-
-func stop_moving() -> void:
-	velocity.x = move_toward(velocity.x, 0, speed)
-	velocity.z = move_toward(velocity.z, 0, speed)
 	
 	
 func get_stat_resource(stat: int) -> StatResource:
@@ -55,11 +55,22 @@ func get_stat_resource(stat: int) -> StatResource:
 	return result
 	
 	
+func get_placing_position(distanceMultiplier: float = 0.75) -> Vector3:
+	var new_position := Vector3.BACK.rotated(Vector3.UP, facing_angle)
+	new_position *= distanceMultiplier;
+	return new_position
+
+
+func stop_moving() -> void:
+	velocity.x = move_toward(velocity.x, 0, speed)
+	velocity.z = move_toward(velocity.z, 0, speed)
+		
+	
 func set_disable_hitbox(flag: bool) -> void:
 	_hitbox_shape.disabled = flag
 	
 	
-func _rotate_model(delta: float) -> void:
+func _rotate_model(_delta: float) -> void:
 	var is_moving: bool = velocity.x != 0 or velocity.z != 0
 		
 	if is_moving:
@@ -69,10 +80,17 @@ func _rotate_model(delta: float) -> void:
 	
 	
 func _on_hurtbox_entered(area: Area3D) -> void:
+	if not area.has_method("get_damage"):
+		return
+		
+	var damage: float = area.get_damage()
+	
 	var health: StatResource = get_stat_resource(StatResource.Stat.Health)
+	health.stat_value -= damage
 	
-	var character: Character = area.owner as Character;
-	health.stat_value -= character.get_stat_resource(StatResource.Stat.Strength).stat_value
-	
-	print(character.name)
-	print(health.stat_value)
+	_shader.set_shader_parameter("active", true)
+	_timer.start()
+	#print(health.stat_value)
+
+func _on_timeout() -> void:
+	_shader.set_shader_parameter("active", false)

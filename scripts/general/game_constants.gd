@@ -11,7 +11,9 @@ const ANIM_ATTACK: Array[String] = [
 	"1H_Melee_Attack_Slice_Horizontal"
 ]
 const ANIM_HIT: String = "Hit_A"
-
+const ANIM_EXPAND: String = "Expand"
+const ANIM_EXPLOSION: String = "Explosion"
+const ANIM_INTERACT: String = "Interact"
 
 # Inputs
 const INPUT_P1_PAUSE: String = "p1_pause"
