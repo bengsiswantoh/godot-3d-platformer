@@ -29,7 +29,7 @@ shader_parameter/active = false
 shader_parameter/thickness = 0.1
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hitbox", "_hitbox_shape", "_hurtbox", "_head", "_timer")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hurtbox", "hitbox", "_hitbox_shape", "_head", "_timer")]
 collision_layer = 2
 collision_mask = 5
 floor_max_angle = 1.55334
@@ -39,9 +39,9 @@ stats = Array[Resource("res://scripts/resources/stat_resource.gd")]([ExtResource
 animation_player = NodePath("Knight/AnimationPlayer")
 state_machine = NodePath("StateMachine")
 model = NodePath("Knight")
+hurtbox = NodePath("Hurtbox")
 hitbox = NodePath("Hitbox")
 _hitbox_shape = NodePath("Hitbox/CollisionShape3D")
-_hurtbox = NodePath("Hurtbox")
 _head = NodePath("Knight/Rig/Skeleton3D/Knight_Helmet/Knight_Helmet")
 _timer = NodePath("ShaderTimer")
 
@@ -49,9 +49,8 @@ _timer = NodePath("ShaderTimer")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_enn55")
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("_current_state", "_states") instance=ExtResource("2_870mw")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_current_state") instance=ExtResource("2_870mw")]
 _current_state = NodePath("IdleState")
-_states = [NodePath("IdleState"), NodePath("MoveState"), NodePath("AttackState"), NodePath("DeathState"), NodePath("PlacingBombState")]
 
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("2_756c2")

@@ -13,7 +13,7 @@ func enter_state() -> void:
 	character.stop_moving()
 	character.animation_player.play(GameConstants.ANIM_ATTACK[0])
 	
-	var target: Node3D = _get_target()
+	var target: Node3D = _get_attack_target()
 	_target_position = target.global_position
 	
 	character.animation_player.animation_finished.connect(_on_animation_finished)
@@ -28,7 +28,7 @@ func exit_state() -> void:
 	_attack_timer.timeout.disconnect(_on_timeout)
 	
 	
-func _get_target() -> Node3D:
+func _get_attack_target() -> Node3D:
 	var targets: Array[Node3D] = character.attack_area.get_overlapping_bodies()
 	
 	if targets.is_empty():
@@ -45,7 +45,7 @@ func _perform_hit() -> void:
 func _on_animation_finished(_animation_name: String) -> void:
 	character.set_disable_hitbox(true)
 	
-	var target: Node3D = _get_target()
+	var target: Node3D = _get_attack_target()
 	
 	if not target:
 		var chase_targets: Array[Node3D] = character.chase_area.get_overlapping_bodies()

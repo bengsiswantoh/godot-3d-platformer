@@ -8,9 +8,9 @@ extends CharacterBody3D
 @export var animation_player: AnimationPlayer
 @export var state_machine: StateMachine
 @export var model: Node3D
+@export var hurtbox: Area3D
 @export var hitbox: Area3D
 @export var _hitbox_shape: CollisionShape3D
-@export var _hurtbox: Area3D
 @export var _head: MeshInstance3D
 @export var _timer: Timer
 
@@ -32,7 +32,7 @@ func _ready() -> void:
 	_shader = _head.material_overlay
 	
 	_timer.timeout.connect(_on_timeout)
-	_hurtbox.area_entered.connect(_on_hurtbox_entered)
+	hurtbox.area_entered.connect(_on_hurtbox_entered)
 
 
 func _physics_process(delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c8gyf3hs0bqg1"]
+[gd_scene load_steps=21 format=3 uid="uid://c8gyf3hs0bqg1"]
 
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemy.gd" id="1_5vltb"]
 [ext_resource type="PackedScene" uid="uid://bhl80co3kt1tg" path="res://scenes/characters/state_machine.tscn" id="1_ti0f0"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemy_attack_state.gd" id="7_3b4vw"]
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemy_death_state.gd" id="9_n23jn"]
 [ext_resource type="Script" path="res://scripts/characters/attack_hitbox.gd" id="10_3y54k"]
+[ext_resource type="Script" path="res://scripts/characters/enemy/enemy_stun_state.gd" id="10_pl3ag"]
 [ext_resource type="Shader" path="res://shaders/outline3D.gdshader" id="12_g7t3d"]
 
 [sub_resource type="Resource" id="Resource_maskk"]
@@ -43,7 +44,7 @@ shader_parameter/active = false
 shader_parameter/thickness = 0.1
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hitbox", "_hitbox_shape", "_hurtbox", "_head", "_timer", "agent", "chase_area", "attack_area")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "state_machine", "model", "hurtbox", "hitbox", "_hitbox_shape", "_head", "_timer", "agent", "chase_area", "attack_area")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_5vltb")
@@ -52,9 +53,9 @@ stats = Array[ExtResource("2_cxg0b")]([SubResource("Resource_maskk"), SubResourc
 animation_player = NodePath("Skeleton_Minion/AnimationPlayer")
 state_machine = NodePath("StateMachine")
 model = NodePath("Skeleton_Minion")
+hurtbox = NodePath("Hurtbox")
 hitbox = NodePath("Hitbox")
 _hitbox_shape = NodePath("Hitbox/CollisionShape3D")
-_hurtbox = NodePath("Hurtbox")
 _head = NodePath("Skeleton_Minion/Rig/Skeleton3D/Skeleton_Minion_Head")
 _timer = NodePath("ShaderTimer")
 agent = NodePath("NavigationAgent3D")
@@ -65,9 +66,8 @@ attack_area = NodePath("AttackArea")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 shape = SubResource("CapsuleShape3D_e1df3")
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("_current_state", "_states") instance=ExtResource("1_ti0f0")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_current_state") instance=ExtResource("1_ti0f0")]
 _current_state = NodePath("IdleState")
-_states = [NodePath("IdleState"), NodePath("ReturnState"), NodePath("PatrolState"), NodePath("ChaseState"), NodePath("AttackState"), NodePath("DeathState")]
 
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("2_4tif3")
@@ -100,6 +100,9 @@ one_shot = true
 
 [node name="DeathState" type="Node" parent="StateMachine"]
 script = ExtResource("9_n23jn")
+
+[node name="StunState" type="Node" parent="StateMachine"]
+script = ExtResource("10_pl3ag")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_layer = 0

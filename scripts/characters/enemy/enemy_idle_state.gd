@@ -8,6 +8,7 @@ func _physics_process(_delta: float) -> void:
 
 func enter_state() -> void:
 	super()
+	character.stop_moving()
 	character.animation_player.play(GameConstants.ANIM_IDLE)
 	
 	character.chase_area.body_entered.connect(on_chase_area_body_entered)

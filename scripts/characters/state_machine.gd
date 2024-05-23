@@ -3,10 +3,14 @@ extends Node
 
 
 @export var _current_state: Node
-@export var _states: Array[Node]
+
+
+var _states: Array[Node]
 
 
 func _ready() -> void:
+	#await owner.ready	
+	_states = get_children()
 	_current_state.enter_state()
 
 
