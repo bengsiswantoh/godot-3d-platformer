@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://02pq5rd0p17r"]
+[gd_scene load_steps=24 format=3 uid="uid://02pq5rd0p17r"]
 
 [ext_resource type="PackedScene" uid="uid://c667mbpv0okws" path="res://scenes/characters/player/player.tscn" id="1_ba1wu"]
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_uaatx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/general/camera.gd" id="3_4jg3e"]
 [ext_resource type="PackedScene" uid="uid://c8gyf3hs0bqg1" path="res://scenes/characters/enemy/enemy.tscn" id="3_f5oal"]
 [ext_resource type="PackedScene" uid="uid://e25licqchhxs" path="res://scenes/general/ui.tscn" id="4_6hufn"]
+[ext_resource type="PackedScene" uid="uid://c20tw50tph3ku" path="res://scenes/general/torch.tscn" id="4_bnnv2"]
 [ext_resource type="Script" path="res://scripts/characters/enemy/enemies_container.gd" id="4_iktuw"]
 [ext_resource type="Script" path="res://scripts/resources/stat_resource.gd" id="6_qxqhh"]
 [ext_resource type="PackedScene" uid="uid://bxbdy7m8041gg" path="res://scenes/rewards/treasure_chest.tscn" id="9_ls5i6"]
@@ -112,6 +113,9 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="AvoidableItems" type="Node3D" parent="Environment/NavigationRegion3D"]
 
 [node name="Walltems" type="Node3D" parent="Environment"]
+
+[node name="Torch" parent="Environment/Walltems" instance=ExtResource("4_bnnv2")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 3.5, 2.5, 50)
 
 [node name="Enemies" type="Node3D" parent="."]
 script = ExtResource("4_iktuw")

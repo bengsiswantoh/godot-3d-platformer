@@ -18,3 +18,5 @@ func set_state(flag: bool) -> void:
 	set_physics_process(flag)
 	set_process_input(flag)
 
+func can_transition() -> bool:
+	return true

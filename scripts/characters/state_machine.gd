@@ -15,16 +15,19 @@ func _ready() -> void:
 
 
 func switch_state(state_to_change):
-	var new_state: Node
+	var new_state: CharacterState
 	for state in _states:
 		if state.get_script() == state_to_change:
 			new_state = state
 			break
 			
-	if !new_state:
+	if not new_state:
 		return
 	
 	if _current_state.get_script() == state_to_change:
+		return
+		
+	if not _current_state.can_transition():
 		return
 	
 	_current_state.exit_state()
