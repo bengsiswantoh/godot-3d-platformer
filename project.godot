@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="godot-gamedevtv-acion-adventure"
+config/name="godot-gamedevtv-action-adventure"
 run/main_scene="res://scenes/levels/world.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
