@@ -25,7 +25,7 @@ var facing_angle: float
 
 
 var _shader: ShaderMaterial
-var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+#var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func _ready() -> void:
@@ -35,13 +35,11 @@ func _ready() -> void:
 	hurtbox.area_entered.connect(_on_hurtbox_entered)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= _gravity * delta
-		
-	move_and_slide()
-	_rotate_model(delta)
+	#if not is_on_floor():
+		#velocity.y -= _gravity * delta
+	pass
 	
 	
 func get_stat_resource(stat: int) -> StatResource:
@@ -70,13 +68,12 @@ func set_disable_hitbox(flag: bool) -> void:
 	_hitbox_shape.disabled = flag
 	
 	
-func _rotate_model(_delta: float) -> void:
+func rotate_model() -> void:
 	var is_moving: bool = velocity.x != 0 or velocity.z != 0
 		
 	if is_moving:
 		facing_angle = Vector2(velocity.z, velocity.x).angle()
-		#model.rotation.y = lerp_angle(model.rotation.y, facing_angle, _rotation_speed * delta)
-		model.rotation.y = facing_angle
+		model.rotation.y = lerp_angle(model.rotation.y, facing_angle, 0.5)
 	
 	
 func _on_hurtbox_entered(area: Area3D) -> void:

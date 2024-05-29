@@ -42,6 +42,14 @@ func update_velocity_based_on_direction() -> void:
 		stop_moving()
 
 
+func rotate_model() -> void:
+	var is_moving: bool = direction.x != 0 or direction.z != 0
+		
+	if is_moving:
+		facing_angle = Vector2(direction.z, direction.x).angle()
+		model.rotation.y = lerp_angle(model.rotation.y, facing_angle, 0.5)
+
+
 func _on_chest_opened(reward: RewardResource) -> void:
 	var stat = get_stat_resource(reward.target_stat.stat_type)
 	stat.stat_value += reward.target_stat.stat_value
